@@ -35,36 +35,32 @@ class CodeReader extends React.Component{
         }
     };
     render(){
-        return( 
-            <View>
+        return(
+            <View style={styles.container}>
                 <FlatList
                     data={this.state.signatures}
-                    renderItem={({item}) => <Text>{item.login}</Text>}
-                >
-
+                    contentContainerStyle = {styles.list}
+                    renderItem={({item}) => <Text>- {item.login}</Text>}>
                 </FlatList>
-
             </View>
-            
+
         )
     }
 }
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#2c3e50',
-        width: '100%',
-        height: '100%',
-        display: 'flex',
-        justifyContent: 'center' ,
-        alignItems: 'center',
+      backgroundColor: '#2c3e50',
+      width: '100%',
+      height: '100%',
+      display: 'flex',
+      justifyContent: 'center' ,
+      alignItems: 'center',
     },
-    preview: {
-        flex: 1,
-        justifyContent: 'flex-end',
-        alignItems: 'center'
-        },
+    list: {
+      marginTop: 55,
+      marginLeft: 8
+    },
 });
 
 export default withNavigation(CodeReader);
-

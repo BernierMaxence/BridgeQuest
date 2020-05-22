@@ -12,21 +12,18 @@ class DisplayQR extends React.Component{
             logoFromFile: require('./assets/logo.png'),
         }
     }
-    
+
     static navigationOptions= ({navigation}) => ({
-        headerLeft: <Dock/>   
+        headerLeft: <Dock/>
     });
 
     render(){
         const login = this.props.navigation.getParam('login');
-
         return(
             <SafeAreaView style={styles.container}>
                 <QRCode
-                    logo={this.state.logoFromFile}
-                    logoSize={50}
-                    value={'login'}
-                    size={200}
+                    value={login}
+                    size={270}
                     color={'white'}
                     backgroundColor={'#2c3e50'}
                 />

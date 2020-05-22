@@ -12,7 +12,7 @@ class Login extends React.Component{
             login: '',
         }
     }
-    
+
     _onChangeText(text) {
         this.setState({login: text});
     }
@@ -36,12 +36,12 @@ class Login extends React.Component{
                     onChangeText={text => this._onChangeText(text)}
                     maxLength={40}
                 />
-                <Button 
+                <Button
                     onPress={() => navigate("DisplayQR", {login: this.state.login})}
                     title={'Go'}
                 />
             </LinearGradient>
-                
+
             </SafeAreaView>
         )
     }
@@ -55,13 +55,12 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0,
         backgroundColor: '#281a53',
-        display: 'flex', 
+        display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
         top: -20,
-    }, 
+    },
 });
 
 export default withNavigation(Login);
-
