@@ -3,7 +3,7 @@ import {StyleSheet, View, Text} from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { FlatList } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-community/async-storage';
-import Dock from './Dock';
+import Dock from './Dock/Dock';
 
 
 class CodeReader extends React.Component{
@@ -58,7 +58,8 @@ const styles = StyleSheet.create({
       alignItems: 'center',
     },
     list: {
-      marginTop: 55,
+      //Arevoir !
+      marginTop: 80,
       marginLeft: 8
     },
 });

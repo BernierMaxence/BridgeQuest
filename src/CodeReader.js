@@ -3,7 +3,7 @@ import {StyleSheet, Text} from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { RNCamera } from 'react-native-camera';
 import AsyncStorage from '@react-native-community/async-storage';
-import Dock from './Dock';
+import Dock from './Dock/Dock';
 
 class CodeReader extends React.Component{
     constructor(props){
@@ -13,7 +13,7 @@ class CodeReader extends React.Component{
     }
 
     static navigationOptions= ({navigation}) => ({
-        headerLeft: <Dock/>   
+        headerLeft: <Dock/>
     });
 
     _storeData = async (array) => {
@@ -47,14 +47,14 @@ class CodeReader extends React.Component{
         await this._storeData(savedSignatures);
 
         const azaz = await this._retrieveData();
-        console.log('azaz ', azaz); 
+        console.log('azaz ', azaz);
         this.props.navigation.replace("SignatureList")
     }
-    
+
     render(){
-        const {navigate} = this.props.navigation; 
+        const {navigate} = this.props.navigation;
         return(
-            <RNCamera barCodeTypes={[RNCamera.Constants.BarCodeType.qr]} 
+            <RNCamera barCodeTypes={[RNCamera.Constants.BarCodeType.qr]}
                 onBarCodeRead = {this._onBarCodeRead}
                 style={styles.preview}
                 ref={cam => this.camera = cam}
@@ -63,7 +63,7 @@ class CodeReader extends React.Component{
                         backgroundColor: 'white',
                         marginBottom:30,
                     }}>{this.state.barcode}</Text>
-            </RNCamera>        
+            </RNCamera>
         )
     }
 }
@@ -85,4 +85,3 @@ const styles = StyleSheet.create({
 });
 
 export default withNavigation(CodeReader);
-

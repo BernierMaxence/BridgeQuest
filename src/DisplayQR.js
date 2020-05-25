@@ -3,14 +3,11 @@ import {StyleSheet, View, Text, TouchableOpacity, Button} from 'react-native';
 import { withNavigation } from 'react-navigation';
 import SafeAreaView from 'react-native-safe-area-view';
 import QRCode from 'react-native-qrcode-svg';
-import Dock from './Dock';
+import Dock from './Dock/Dock';
 
 class DisplayQR extends React.Component{
     constructor(props){
         super(props);
-        this.state = {
-            logoFromFile: require('./assets/logo.png'),
-        }
     }
 
     static navigationOptions= ({navigation}) => ({

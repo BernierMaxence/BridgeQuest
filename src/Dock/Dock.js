@@ -9,24 +9,15 @@ class DisplayQR extends React.Component{
         this.state = {
         }
     }
-    
+
     render(){
-        return(
-            <View style={styles.container}>
-                <Tab 
-                    title="QR Code"
-                    navigationGoal="DisplayQR"
-                ></Tab>
-                <Tab 
-                    title="Camera"
-                    navigationGoal="CodeReader"
-                ></Tab>
-                <Tab
-                    title="Capturés"
-                    navigationGoal="SignatureList"
-                ></Tab>
-            </View>
-        )
+      return(
+        <View style={styles.container}>
+          <Tab title="QRCODE" navigationGoal="DisplayQR"></Tab>
+          <Tab title="SCAN" navigationGoal="CodeReader"></Tab>
+          <Tab title="SIGNATURE" navigationGoal="SignatureList"></Tab>
+        </View>
+      )
     }
 }
 
@@ -43,4 +34,3 @@ const styles = StyleSheet.create({
 });
 
 export default withNavigation(DisplayQR);
-
