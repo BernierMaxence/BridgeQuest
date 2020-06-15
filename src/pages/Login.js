@@ -4,7 +4,8 @@ import { withNavigation } from 'react-navigation';
 import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 import SafeAreaView from 'react-native-safe-area-view';
 import LinearGradient from 'react-native-linear-gradient';
-import { getAllGames } from '../api/api.js'
+
+import { getAllGames, getGameById, putPlayer } from '../api/api.js'
 
 class Login extends React.Component{
 
@@ -23,12 +24,19 @@ class Login extends React.Component{
     this.setState({login: text});
   }
 
-  _onPressLogin() {
-    const { navigate } = this.props.navigation
+  async _onPressLogin() {
     const { login, gameId } = this.state
-
+    // console.log(game.players)
+    // console.log(game.players.map(item => item.pseudo === login))
     if (login && gameId) {
-      navigate("DisplayQR", {login})
+      const game = await getGameById(gameId)
+      //console.log(game.players.map(player => player.pseudo === login).)
+      //console.log(game.players.some(player => player.pseudo === login))
+      if (!game.players.some(player => player.pseudo === login)) {
+        await putPlayer(gameId, { pseudo : login })
+      }
+      const { navigate } = this.props.navigation
+      navigate("DisplayQR", {login, gameId})
     }
   }
 
@@ -52,7 +60,7 @@ class Login extends React.Component{
 
   async updateStateAllGames() {
     const allGames = await getAllGames()
-    console.log(allGames)
+    //console.log(allGames)
     this.setState({allGames})
   }
 
