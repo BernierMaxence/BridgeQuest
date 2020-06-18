@@ -5,6 +5,7 @@ import Login from '../pages/Login';
 import DisplayQR from '../pages/DisplayQR';
 import CodeReader from '../pages/CodeReader';
 import SignatureList from '../pages/SignatureList';
+import WaitingRoom from '../pages/WaitingRoom';
 
 const headerOptions = {
   headerTransparent: true,
@@ -14,6 +15,12 @@ const AuthStackNavigator = createStackNavigator({
 
   Login: {
     screen: Login,
+    navigationOptions: {
+        header: null,
+      }
+  },
+  WaitingRoom: {
+    screen: WaitingRoom,
     navigationOptions: {
         header: null,
       }

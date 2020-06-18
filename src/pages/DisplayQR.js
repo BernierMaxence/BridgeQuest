@@ -12,11 +12,24 @@ class DisplayQR extends React.Component{
   // }
 
     static navigationOptions= ({navigation}) => ({
-        headerLeft: <Dock/>
+        headerLeft: <Dock
+          login={"OUI"}
+          playerId={100}
+          gameId={100}></Dock>
     });
 
+    // login={"OUI"}
+    // playerId={100}
+    // gameId={100}
+
     render(){
+      //  console.log("oui")
+      //  console.log(this.props.navigation.getParam('login'))
+      //  console.log(this.props.navigation.getParam('playerId'))
+      //  console.log(this.props.navigation.getParam('gameId'))
+      // console.log("stop\n")
       const login = this.props.navigation.getParam('login');
+      //console.log(login)
       return(
         <SafeAreaView style={styles.mainContainer}>
           <QRCode

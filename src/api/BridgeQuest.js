@@ -11,16 +11,24 @@ export function getAllGames(){
 }
 
 export function getGameById(gameId){
-  const url = `${host}/games/${gameId}`
+  const url = `${host}/game/${gameId}`
   return fetch(url, { method: 'GET'})
     .then((response) => response.json())
     .catch((error) => console.log(error))
 }
 
+//export function getPlayerByName(gameId, playerName){
+//   const url = `${host}/game/${gameId}/player/${playerName}`
+//   return fetch(url, { method: 'GET' })
+//     .then((response) => response.json())
+//     .catch((error) => console.log(error))
+// }
+
+
 export function putPlayer(gameId, player){
   //console.log(player)
-  console.log(JSON.stringify(player))
-  const url = `${host}/games/${gameId}/players`
+  //console.log(JSON.stringify(player))
+  const url = `${host}/game/${gameId}/player`
   return fetch(url, {
     method: 'PUT',
     body: JSON.stringify(player),

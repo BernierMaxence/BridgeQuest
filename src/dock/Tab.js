@@ -3,7 +3,7 @@ import { StyleSheet, View, TouchableOpacity, Image } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import icons from './Icons.js'
 
-class DisplayQR extends React.Component{
+class Tab extends React.Component{
 
   // constructor(props){
   //     super(props);
@@ -38,4 +38,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default withNavigation(DisplayQR);
+export default withNavigation(Tab);

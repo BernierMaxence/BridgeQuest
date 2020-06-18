@@ -1,11 +1,11 @@
 import React from 'react';
-import { View, TextInput, Image, TouchableOpacity, StyleSheet, Button, Text, FlatList } from 'react-native';
+import { View, TextInput, Image, TouchableOpacity, StyleSheet, Button, Text, FlatList, Navigator } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 import SafeAreaView from 'react-native-safe-area-view';
 import LinearGradient from 'react-native-linear-gradient';
 
-import { getAllGames, getGameById, putPlayer } from '../api/api.js'
+import { getAllGames, getGameById, putPlayer } from '../api/BridgeQuest.js'
 
 class Login extends React.Component{
 
@@ -26,18 +26,29 @@ class Login extends React.Component{
 
   async _onPressLogin() {
     const { login, gameId } = this.state
-    // console.log(game.players)
-    // console.log(game.players.map(item => item.pseudo === login))
     if (login && gameId) {
-      const game = await getGameById(gameId)
-      //console.log(game.players.map(player => player.pseudo === login).)
-      //console.log(game.players.some(player => player.pseudo === login))
-      if (!game.players.some(player => player.pseudo === login)) {
-        await putPlayer(gameId, { pseudo : login })
-      }
       const { navigate } = this.props.navigation
-      navigate("DisplayQR", {login, gameId})
+      var game = await getGameById(gameId)
+      var playerId = this._findPlayerIdInGame(game.players, login)
+      if (playerId) {
+        navigate((game.ongoing) ? "DisplayQR" : "WaitingRoom", { login, playerId, gameId })
+        return
+      }
+      //a revoir (faut que putplayer return un joueur)
+      game = await putPlayer(gameId, { pseudo : login })
+      playerId = this._findPlayerIdInGame(game.players, login)
+      //console.log(login + ' ' + playerId + ' ' + gameId)
+      navigate((game.ongoing) ? "DisplayQR" : "WaitingRoom", { login, playerId, gameId })
     }
+  }
+
+  _findPlayerIdInGame(game, login) {
+    for (const player of game) {
+      if (player.pseudo === login) {
+        return player.id
+      }
+    }
+    return 0
   }
 
   _menu = null;
@@ -58,14 +69,15 @@ class Login extends React.Component{
     this._menu.hide();
   };
 
-  async updateStateAllGames() {
+  async _updateStateAllGames() {
     const allGames = await getAllGames()
     //console.log(allGames)
     this.setState({allGames})
   }
 
+
   async componentDidMount() {
-    this.updateStateAllGames()
+    this._updateStateAllGames()
   }
 
 
@@ -118,51 +130,51 @@ class Login extends React.Component{
 const styles = StyleSheet.create({
 
   mainContainer: {
-      position: 'absolute',
-      bottom: 0,
-      left: 0,
-      right: 0,
-      backgroundColor: '#281a53',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      top: -20,
-    },
-    logoStyle: {
-      width: 200,
-      height: 200
-    },
-    inputStyle: {
-      width: 200,
-      height: 30,
-      borderColor:'#e5fdfe',
-      borderRadius: 4,
-      borderWidth: 1,
-      padding: 5,
-      backgroundColor:'#e5fdfe'
-    },
-    menuContainer: {
-      alignSelf: 'flex-start',
-      //a revoir !!
-      marginLeft: 95,
-      //backgroundColor: 'red',
-      margin: 10,
-      justifyContent: 'center'
-    },
-    menuStyle:{
-      marginTop: 30,
-    },
-    menuTextStyle:{
-      fontSize: 18,
-      fontWeight: 'bold',
-      color:'#e5fdfe'
-    },
-    buttonStyle: {
-      marginLeft: 150,
-      width: 50,
-      height: 50
-    }
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: '#281a53',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    top: -20,
+  },
+  logoStyle: {
+    width: 200,
+    height: 200
+  },
+  inputStyle: {
+    width: 200,
+    height: 30,
+    borderColor:'#e5fdfe',
+    borderRadius: 4,
+    borderWidth: 1,
+    padding: 5,
+    backgroundColor:'#e5fdfe'
+  },
+  menuContainer: {
+    alignSelf: 'flex-start',
+    //a revoir !!
+    marginLeft: 95,
+    //backgroundColor: 'red',
+    margin: 10,
+    justifyContent: 'center'
+  },
+  menuStyle:{
+    marginTop: 30,
+  },
+  menuTextStyle:{
+    fontSize: 18,
+    fontWeight: 'bold',
+    color:'#e5fdfe'
+  },
+  buttonStyle: {
+    marginLeft: 150,
+    width: 50,
+    height: 50
+  }
 
 });
 

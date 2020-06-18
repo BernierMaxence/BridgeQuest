@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { RNCamera } from 'react-native-camera';
-import AsyncStorage from '@react-native-community/async-storage';
+
 import Dock from '../dock/Dock';
 
 class CodeReader extends React.Component{
@@ -16,35 +16,16 @@ class CodeReader extends React.Component{
     headerLeft: <Dock/>
   });
 
-  _storeData = async (array) => {
-    try {
-      await AsyncStorage.setItem('signatures', JSON.stringify(array));
-    } catch (error) {
-      console.log('error saving data ', error)
-      // Error saving data
-    }
-  };
-
-  _retrieveData = async () => {
-    try {
-      const value = await AsyncStorage.getItem('signatures');
-      if (value !== null) {
-        return JSON.parse(value);
-      } else {
-        return [];
-      }
-    } catch (error) {
-      console.log('error retiving data, ', error)
-      return [];
-    }
-  };
+  // login={"OUI"}
+  // playerId={100}
+  // gameId={100}
 
   _onBarCodeRead = async (data) => {
-    const savedSignatures = await this._retrieveData();
-    savedSignatures.push({login : data.data});
-    await this._storeData(savedSignatures);
-    //const azaz = await this._retrieveData();
-    //console.log('azaz ', azaz);
+    //get sigantures du joueur pour verfier si le qr code est valide
+    //si c'est bien un joueur
+
+    //ajouter signature au joueur.
+
     this.props.navigation.replace("SignatureList")
   }
 

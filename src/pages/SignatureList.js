@@ -18,20 +18,18 @@ class CodeReader extends React.Component{
     headerLeft: <Dock/>,
   });
 
+  // login={"OUI"}
+  // playerId={100}
+  // gameId={100}
+
   async componentWillMount() {
     const savedSignatures = await this._retrieveData();
     this.setState({signatures: savedSignatures});
   }
 
   _retrieveData = async () => {
-    try {
-      const value = await AsyncStorage.getItem('signatures');
-      if (value !== null) {
-        return JSON.parse(value);
-      }
-    } catch (error) {
-      return [];
-    }
+    //get les signatures du joueur
+    return []
   };
 
   render(){
