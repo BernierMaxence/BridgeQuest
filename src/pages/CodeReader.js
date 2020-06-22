@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { RNCamera } from 'react-native-camera';
+import { putSignature } from '../api/BridgeQuest.js'
 
 import Dock from '../dock/Dock';
 
@@ -21,12 +22,19 @@ class CodeReader extends React.Component{
   // gameId={100}
 
   _onBarCodeRead = async (data) => {
-    //get sigantures du joueur pour verfier si le qr code est valide
-    //si c'est bien un joueur
-
-    //ajouter signature au joueur.
-
-    this.props.navigation.replace("SignatureList")
+    //horrible
+    const raw = data.data.toString().split("|");
+    // console.log(data)
+    // console.log(raw[1])
+    // console.log(raw[0])
+    putSignature(
+      this.props.navigation.getParam('gameId'),
+      this.props.navigation.getParam('playerId'),
+      {id : raw[1], pseudo : raw[0]})
+    this.props.navigation.replace("SignatureList", {
+      login : this.props.navigation.getParam('login'),
+      playerId : this.props.navigation.getParam('playerId'),
+      gameId : this.props.navigation.getParam('gameId')})
   }
 
   render(){

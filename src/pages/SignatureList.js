@@ -5,12 +5,16 @@ import { FlatList } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-community/async-storage';
 import Dock from '../dock/Dock';
 
+import { getSignatures } from '../api/BridgeQuest.js'
+
 class CodeReader extends React.Component{
 
   constructor(props){
     super(props);
     this.state = {
-      signatures: []
+      signatures: [
+        { "pseudo" : "" }
+      ]
     }
   }
 
@@ -18,27 +22,22 @@ class CodeReader extends React.Component{
     headerLeft: <Dock/>,
   });
 
-  // login={"OUI"}
-  // playerId={100}
-  // gameId={100}
-
-  async componentWillMount() {
-    const savedSignatures = await this._retrieveData();
+  async UNSAFE_componentWillMount() {
+    const savedSignatures = await getSignatures(
+      this.props.navigation.getParam('gameId'),
+      this.props.navigation.getParam('playerId'));
+    console.log(savedSignatures)
     this.setState({signatures: savedSignatures});
   }
 
-  _retrieveData = async () => {
-    //get les signatures du joueur
-    return []
-  };
-
   render(){
+    const {navigation} = this.props;
     return(
       <View style={styles.mainContainer}>
         <FlatList
           data={this.state.signatures}
           contentContainerStyle = {styles.listContainer}
-          renderItem={({item}) => <Text>- {item.login}</Text>}>
+          renderItem={({item}) => <Text>- {item.pseudo}</Text>}>
         </FlatList>
       </View>
     )
@@ -54,7 +53,7 @@ const styles = StyleSheet.create({
     height: '100%',
     display: 'flex',
     justifyContent: 'center' ,
-    alignItems: 'center',
+    alignItems: 'flex-start',
   },
   listContainer: {
     //Arevoir !

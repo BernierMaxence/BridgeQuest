@@ -15,7 +15,10 @@ class Tab extends React.Component{
     return(
       <View>
         <TouchableOpacity
-          onPress={() => navigation.navigate(navigationGoal)}>
+          onPress={() => navigation.navigate(navigationGoal, {
+            login : navigation.getParam('login'),
+            playerId : navigation.getParam('playerId'),
+            gameId : navigation.getParam('gameId')})}>
           <Image
             source={icons[title].uri}
             style={styles.iconStyle}

@@ -80,7 +80,7 @@ class WaitingRoom extends React.Component{
     this.setState({
       timeLeft : this._getSecondUntil(game.dateStart)
     });
-    console.log(game)
+    //console.log(game)
     if (game.ongoing) {
       const { navigate } = this.props.navigation
       const login = this.props.navigation.getParam('login')
