@@ -1,5 +1,5 @@
 // const host = "https://www.googleapis.com/geolocation/v1/geolocate?key="
-// const key = "AIzaSyD4hXP9V-nMBfht1F2Q4nZcdf9BsaC8oq4"
+export const apikey = "AIzaSyD4hXP9V-nMBfht1F2Q4nZcdf9BsaC8oq4"
 //
 // export function googleApi(){
 //   const url = `${host}${key}`

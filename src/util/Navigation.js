@@ -6,6 +6,7 @@ import DisplayQR from '../pages/DisplayQR';
 import CodeReader from '../pages/CodeReader';
 import SignatureList from '../pages/SignatureList';
 import WaitingRoom from '../pages/WaitingRoom';
+import DisplayMap from '../pages/DisplayMap';
 
 const headerOptions = {
   headerTransparent: true,
@@ -35,6 +36,10 @@ const AuthStackNavigator = createStackNavigator({
   },
   SignatureList: {
     screen: SignatureList,
+    navigationOptions: headerOptions,
+  },
+  DisplayMap: {
+    screen : DisplayMap,
     navigationOptions: headerOptions,
   }
 

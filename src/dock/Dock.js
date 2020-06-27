@@ -5,24 +5,18 @@ import Tab from './Tab';
 
 class Dock extends React.Component{
 
-  constructor(props){
-      super(props);
-    this.state = { }
-    //console.log(this.props)
-  }
+  // constructor(props){
+  //     super(props);
+  //   this.state = { }
+  // }
 
   render(){
-    const {login, playerId, gameId} = this.props;
-    // console.log("\n")
-    // console.log("log = " + login);
-    // console.log("playerId = " + playerId);
-    // console.log("gameId = " + gameId);
-    // console.log("fin\n")
     return(
       <View style={styles.mainContainer}>
         <Tab title="QRCODE" navigationGoal="DisplayQR"></Tab>
         <Tab title="SCAN" navigationGoal="CodeReader"></Tab>
         <Tab title="SIGNATURE" navigationGoal="SignatureList"></Tab>
+        <Tab title="MAP" navigationGoal="DisplayMap"></Tab>
       </View>
     )
   }
